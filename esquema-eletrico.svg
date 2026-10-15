@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="720" viewBox="0 0 900 720" font-family="Segoe UI, Arial, Helvetica, sans-serif">
+  <rect width="900" height="720" fill="#FFFFFF"/>
+
+  <!-- Título -->
+  <text x="40" y="44" font-size="22" font-weight="600" fill="#1E1E1E">Sonar ultrassônico — esquema elétrico</text>
+  <text x="40" y="68" font-size="14" fill="#555555">Arduino Uno + HC-SR04 + servo SG90 · varredura de 180°</text>
+
+  <!-- Barramentos (fileiras laterais da protoboard) -->
+  <line x1="330" y1="115" x2="330" y2="590" stroke="#D7263D" stroke-width="5" opacity="0.35"/>
+  <line x1="400" y1="115" x2="400" y2="590" stroke="#1F5FAD" stroke-width="5" opacity="0.35"/>
+  <text x="330" y="104" font-size="15" font-weight="600" fill="#B01E32" text-anchor="middle">+5V</text>
+  <text x="400" y="104" font-size="15" font-weight="600" fill="#1F5FAD" text-anchor="middle">GND</text>
+
+  <!-- Arduino Uno -->
+  <rect x="60" y="120" width="190" height="380" rx="10" fill="#E3F2F4" stroke="#1F7A8C" stroke-width="1.5"/>
+  <text x="135" y="148" font-size="17" font-weight="600" fill="#135562" text-anchor="middle">Arduino Uno</text>
+  <g font-size="14" fill="#135562" text-anchor="end">
+    <text x="240" y="155">5V</text>
+    <text x="240" y="195">GND</text>
+    <text x="240" y="275">D10</text>
+    <text x="240" y="315">D11</text>
+    <text x="240" y="435">D12</text>
+  </g>
+  <g fill="#135562">
+    <circle cx="250" cy="150" r="3.5"/><circle cx="250" cy="190" r="3.5"/>
+    <circle cx="250" cy="270" r="3.5"/><circle cx="250" cy="310" r="3.5"/>
+    <circle cx="250" cy="430" r="3.5"/>
+  </g>
+
+  <!-- HC-SR04 -->
+  <rect x="520" y="200" width="260" height="165" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+  <g font-size="14" fill="#3C3489">
+    <text x="532" y="235">VCC</text>
+    <text x="532" y="275">Trig</text>
+    <text x="532" y="315">Echo</text>
+    <text x="532" y="350">GND</text>
+  </g>
+  <text x="690" y="280" font-size="17" font-weight="600" fill="#3C3489" text-anchor="middle">HC-SR04</text>
+  <text x="690" y="302" font-size="13" fill="#534AB7" text-anchor="middle">sensor ultrassônico</text>
+
+  <!-- Servo SG90 -->
+  <rect x="520" y="405" width="260" height="115" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+  <g font-size="14" fill="#3C3489">
+    <text x="532" y="435">laranja (sinal)</text>
+    <text x="532" y="470">vermelho (+)</text>
+    <text x="532" y="505">marrom (−)</text>
+  </g>
+  <text x="705" y="460" font-size="17" font-weight="600" fill="#3C3489" text-anchor="middle">Servo</text>
+  <text x="705" y="482" font-size="17" font-weight="600" fill="#3C3489" text-anchor="middle">SG90</text>
+
+  <!-- Fios do Arduino -->
+  <path d="M250 150 L330 150" fill="none" stroke="#D7263D" stroke-width="2.5"/>
+  <path d="M250 190 L323 190 A7 7 0 0 1 337 190 L400 190" fill="none" stroke="#1F5FAD" stroke-width="2.5"/>
+  <path d="M250 270 L323 270 A7 7 0 0 1 337 270 L393 270 A7 7 0 0 1 407 270 L520 270" fill="none" stroke="#E0A100" stroke-width="2.5"/>
+  <path d="M250 310 L323 310 A7 7 0 0 1 337 310 L393 310 A7 7 0 0 1 407 310 L520 310" fill="none" stroke="#2E9E4F" stroke-width="2.5"/>
+  <path d="M250 430 L323 430 A7 7 0 0 1 337 430 L393 430 A7 7 0 0 1 407 430 L520 430" fill="none" stroke="#E56B1F" stroke-width="2.5"/>
+
+  <!-- Alimentação do sensor -->
+  <path d="M330 230 L393 230 A7 7 0 0 1 407 230 L520 230" fill="none" stroke="#D7263D" stroke-width="2.5"/>
+  <path d="M400 345 L520 345" fill="none" stroke="#1F5FAD" stroke-width="2.5"/>
+
+  <!-- Alimentação do servo -->
+  <path d="M330 465 L393 465 A7 7 0 0 1 407 465 L520 465" fill="none" stroke="#D7263D" stroke-width="2.5"/>
+  <path d="M400 500 L520 500" fill="none" stroke="#1F5FAD" stroke-width="2.5"/>
+
+  <!-- Capacitor 470 µF entre +5V e GND -->
+  <path d="M330 565 L355 565" fill="none" stroke="#D7263D" stroke-width="2.5"/>
+  <line x1="355" y1="550" x2="355" y2="580" stroke="#1E1E1E" stroke-width="3"/>
+  <path d="M371 550 Q362 565 371 580" fill="none" stroke="#1E1E1E" stroke-width="3"/>
+  <path d="M366 565 L400 565" fill="none" stroke="#1F5FAD" stroke-width="2.5"/>
+  <text x="345" y="545" font-size="14" font-weight="600" fill="#1E1E1E" text-anchor="middle">+</text>
+  <text x="430" y="560" font-size="14" font-weight="600" fill="#1E1E1E">C1 · 470 µF / 16 V</text>
+  <text x="430" y="578" font-size="12" fill="#555555">eletrolítico — faixa (−) no GND</text>
+
+  <!-- Pontos de conexão nos barramentos -->
+  <g fill="#B01E32">
+    <circle cx="330" cy="150" r="5"/><circle cx="330" cy="230" r="5"/>
+    <circle cx="330" cy="465" r="5"/><circle cx="330" cy="565" r="5"/>
+  </g>
+  <g fill="#1F5FAD">
+    <circle cx="400" cy="190" r="5"/><circle cx="400" cy="345" r="5"/>
+    <circle cx="400" cy="500" r="5"/><circle cx="400" cy="565" r="5"/>
+  </g>
+
+  <!-- Legenda -->
+  <line x1="40" y1="612" x2="860" y2="612" stroke="#DDDDDD" stroke-width="1"/>
+  <g font-size="13" fill="#333333">
+    <line x1="40" y1="637" x2="66" y2="637" stroke="#D7263D" stroke-width="3"/><text x="74" y="642">+5V</text>
+    <line x1="130" y1="637" x2="156" y2="637" stroke="#1F5FAD" stroke-width="3"/><text x="164" y="642">GND</text>
+    <line x1="225" y1="637" x2="251" y2="637" stroke="#E0A100" stroke-width="3"/><text x="259" y="642">Trig (D10)</text>
+    <line x1="350" y1="637" x2="376" y2="637" stroke="#2E9E4F" stroke-width="3"/><text x="384" y="642">Echo (D11)</text>
+    <line x1="480" y1="637" x2="506" y2="637" stroke="#E56B1F" stroke-width="3"/><text x="514" y="642">Sinal servo (D12)</text>
+    <circle cx="660" cy="637" r="5" fill="#555555"/><text x="672" y="642">= conexão</text>
+    <path d="M748 640 L756 640 A6 6 0 0 1 768 640 L776 640" fill="none" stroke="#555555" stroke-width="2"/><text x="784" y="642">= sem conexão</text>
+  </g>
+  <text x="40" y="676" font-size="13" fill="#A32D2D">Atenção: se as fileiras laterais da protoboard forem divididas no meio, todos os fios de +5V e GND</text>
+  <text x="40" y="694" font-size="13" fill="#A32D2D">precisam ficar na mesma metade (ou faça uma ponte com jumper entre as metades).</text>
+</svg>
