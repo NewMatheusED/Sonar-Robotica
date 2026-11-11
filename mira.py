@@ -10,6 +10,7 @@ from radar import BAUD, PORTA, criar_som_retorno
 ALCANCE_CM = 30        # raio da tela, em cm
 DISTANCIA_SEGUIR = 22  # igual ao DISTANCIA_SEGUIR do src/mira.cpp
 TEMPO_RASTRO = 2.0   # segundos que um ponto leva para sumir da tela
+ANGULO_MIN, ANGULO_MAX = 0, 180  # iguais aos do src/mira.cpp: bipa quando bate nas pontas
 
 LARGURA, ALTURA = 1000, 720
 VERDE = (40, 255, 40)
@@ -48,7 +49,7 @@ def main():
     try:
         if pygame.mixer.get_init() is None:
             pygame.mixer.init()
-        som_trava = criar_som_retorno()
+        som = criar_som_retorno()
     except pygame.error as erro:
         print(f"Não consegui iniciar o som: {erro}")
         ser.close()
@@ -66,6 +67,7 @@ def main():
 
     pontos = [(0, 0.0)] * 181   # (distância, instante da medida) por ângulo
     angulo, distancia = 90, 0
+    ultimo_angulo = None
     travado, alvo, dist_alvo = False, 90, 0
     buffer = ""
 
@@ -88,9 +90,13 @@ def main():
                 if medida is None:
                     continue
                 a, d, t, alvo = medida
+                bateu_ponta = (a in (ANGULO_MIN, ANGULO_MAX)
+                               and ultimo_angulo is not None and a != ultimo_angulo)
                 if t and not travado:
-                    som_trava.play()
                     dist_alvo = 0
+                if bateu_ponta or (t and not travado):
+                    som.play()
+                ultimo_angulo = a
                 travado = t
                 angulo, distancia = a, d
                 pontos[a] = (d, time.time())
