@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../projetos/sonar"
+		},
+		{
+			"name": "Sonar",
+			"path": "."
+		}
+	],
+	"settings": {}
+}

@@ -1,18 +1,31 @@
 import math
 import sys
+from array import array
 
 import pygame
 import serial
 
-PORTA = "COM6"
+PORTA = "COM7"
 BAUD = 9600
 ALCANCE_CM = 40      # pode aumentar até 200, por ai
+ANGULO_MIN, ANGULO_MAX = 15, 165
 
 LARGURA, ALTURA = 1200, 700
 VERDE = (40, 255, 40)
 VERDE_ESCURO = (0, 140, 0)
 VERMELHO = (255, 50, 50)
 PRETO = (0, 0, 0)
+
+
+def criar_som_retorno():
+    frequencia = 44100
+    total = int(frequencia * 0.12)
+    amostras = array("h", (
+        int(8000 * math.sin(2 * math.pi * 880 * i / frequencia)
+            * math.sin(math.pi * i / (total - 1)))
+        for i in range(total)
+    ))
+    return pygame.mixer.Sound(buffer=amostras)
 
 
 def main():
@@ -23,7 +36,17 @@ def main():
         print("Confira o número da porta e feche o monitor serial do PlatformIO.")
         sys.exit(1)
 
+    pygame.mixer.pre_init(44100, -16, 1)
     pygame.init()
+    try:
+        if pygame.mixer.get_init() is None:
+            pygame.mixer.init()
+        som_retorno = criar_som_retorno()
+    except pygame.error as erro:
+        print(f"Não consegui iniciar o som do radar: {erro}")
+        ser.close()
+        pygame.quit()
+        sys.exit(1)
     tela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption("Radar - Sonar Arduino")
     fonte = pygame.font.SysFont("consolas", 22)
@@ -35,6 +58,7 @@ def main():
 
     pontos = [0] * 181
     angulo, distancia = 90, 0
+    ultimo_angulo = None
     buffer = ""
 
     def polar(ang, r):
@@ -60,6 +84,10 @@ def main():
                 except ValueError:
                     continue
                 if 0 <= a <= 180:
+                    if (a in (ANGULO_MIN, ANGULO_MAX)
+                            and ultimo_angulo is not None and a != ultimo_angulo):
+                        som_retorno.play()
+                    ultimo_angulo = a
                     angulo, distancia = a, d
                     pontos[a] = d
 
